@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+  <div class="body">
+
+    <form action="">
+
+    <label for="">Num-1</label>
+    <input type="number" class="in-1" value="" >
+    <br>
+    <br>
+    <label for="">Num-2</label>
+    <input type="number" class="in-2"  >
+    <br>
+    <br>
+    <select name="" class="arith">
+        <option >+</option>
+        <option >*</option> 
+        <option >-</option>
+        <option >/</option>
+        <option >%</option>
+    </select>
+    <br>
+    <br>
+   <input type="submit" class="sub_btn"  >
+</form>
+  </div>
+</head>
+<body>
+    <script>
+        let btn = document.querySelector('.sub_btn').addEventListener('click', (e) => {
+        e.preventDefault()
+     let inp1 = document.querySelector('.in-1').value
+     let inp2 = document.querySelector('.in-2').value
+     let Operation = document.querySelector('.arith').value
+     let app = document.createElement('p')
+     app.innerHTML = `${inp1} ${Operation} ${inp2} = ` +  eval(inp1 +`${Operation}`  + inp2)
+     let body = document.querySelector('.body')
+      body.append(app)
+
+      if(btn === ' '){
+        alert('please perform arithmatic operation')
+      }else{
+        alert('Done')
+      }
+         })
+
+
+</script>
+</body>
+</html>

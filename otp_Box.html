@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>OTP BOX</title>
+  <style>
+    input {
+      width: 40px;
+      height: 40px;
+      text-align: center;
+      font-size: 20px;
+      margin: 5px;
+    }
+
+    input:focus {
+      border: 2px solid red;
+      outline: none;
+    }
+
+    .disabled {
+      background-color: #ddd;
+    }
+  </style>
+</head>
+<body>
+
+  <h1>OTP BOXES</h1>
+  <div class="otp_Field">
+    <input type="text" maxlength="1" />
+    <input type="text" maxlength="1" />
+    <input type="text" maxlength="1" />
+    <input type="text" maxlength="1" />
+    <input type="text" maxlength="1" />
+    <input type="text" maxlength="1" />
+  </div>
+
+  <script>
+    const inputs = document.querySelectorAll('.otp_Field input');
+
+    inputs.forEach((input, index) => {
+      input.dataset.index = index;
+
+      input.addEventListener('paste', handleOnPaste);
+      input.addEventListener('keyup', handleOtpInput);
+    });
+
+    function handleOnPaste(e) {
+      const data = e.clipboardData.getData('text');
+      const value = data.split('');
+
+      if (value.length === inputs.length) {
+        inputs.forEach((input, index) => {
+          input.value = value[index];
+        });
+        submitOtp();
+      } else {
+        alert('Invalid OTP');
+      }
+    }
+
+    function handleOtpInput(e) {
+      const input = e.target;
+      const value = input.value;
+      const index = Number(input.dataset.index);
+
+      input.value = value ? value[0] : '';
+
+      if (value.length > 0 && index < inputs.length - 1) {
+        inputs[index + 1].focus();
+      }
+
+      if (index === inputs.length - 1) {
+        submitOtp();
+      }
+    }
+
+    function submitOtp() {
+      let otp = '';
+      inputs.forEach(input => {
+        otp += input.value;
+        input.disabled = true;
+        input.classList.add('disabled');
+      });
+      console.log('Submitting OTP:', otp);
+      alert('OTP Submitted: ' + otp);
+    }
+  </script>
+</body>
+</html>
